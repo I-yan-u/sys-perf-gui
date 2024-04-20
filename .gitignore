@@ -31,3 +31,6 @@ env/
 
 # Miscellaneous
 .DS_Store
+
+# Test files
+example.py
