@@ -100,12 +100,12 @@ def cpu_times() -> float:
     return psutil.cpu_times()
 
 
-def battery_info() -> List[float, str, bool]:
+def battery_info() -> List[Union[float, str, bool]]:
     """
     Returns the battery information.
 
     Returns:
-    - List[float, str, bool]: A list of battery percentage, time left and power status.
+    - List[Union[float, str, bool]]: A list of battery percentage, time left and power status.
     """
     battery = psutil.sensors_battery()
     power = 'Battery' if not battery.power_plugged else 'AC'
