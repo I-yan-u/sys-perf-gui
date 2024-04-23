@@ -50,3 +50,31 @@ def disk_per() -> float:
     - float: The disk usage percentage.
     """
     return psutil.disk_usage('/').percent
+
+def disk_usage() -> List[float]:
+    """
+    Returns the disk usage percentage of the root directory.
+
+    Returns:
+    - List[float]: A list of Total, used, free and percentage.
+    """
+    return psutil.disk_usage('/')
+
+def cpu_count() -> int:
+    """
+    Returns the number of CPU cores.
+
+    Returns:
+    - int: The number of CPU cores.
+    """
+    return psutil.cpu_count()
+
+def cpu_times() -> float:
+    """
+    Returns the CPU times.
+
+    Returns:
+    - float: The CPU times.
+    """
+    return psutil.cpu_times()
+
