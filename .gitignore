@@ -33,4 +33,4 @@ env/
 .DS_Store
 
 # Test files
-example.py
+example*
