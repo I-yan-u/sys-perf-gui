@@ -1,4 +1,4 @@
-import engine.sys_per
+import engine.sys_per as sp
 import customtkinter
 import tkinter as tk
 import turtle
