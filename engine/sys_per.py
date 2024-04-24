@@ -90,14 +90,22 @@ def cpu_count() -> int:
     return psutil.cpu_count()
 
 
-def cpu_times() -> float:
+def cpu_times(arg: str = None) -> float:
     """
     Returns the CPU times.
 
     Returns:
     - float: The CPU times.
     """
-    return psutil.cpu_times()
+    times = psutil.cpu_times()
+    obj = {
+        'user': times.user,
+        'system': times.system,
+        'idle': times.idle,
+    }
+    if arg and arg in ['user', 'system', 'idle']:
+        return obj[arg]
+    return times
 
 
 def battery_info() -> List[Union[float, str, bool]]:
