@@ -29,12 +29,23 @@ class App(customtkinter.CTk):
         self.button_Mem.pack(padx=5, pady=60.25)
 
         # Init Labels
-        self.label_main = customtkinter.CTkLabel(self.frame2, text="", font=("Arial", 28))
-        self.label_super = customtkinter.CTkLabel(self.frame2, text="", font=("Arial", 16))
-        self.label_sub = customtkinter.CTkLabel(self.frame2, text="", font=("Arial", 16))
+        self.label_ghost = customtkinter.CTkLabel(self.frame2, text="")
+        self.label_main = customtkinter.CTkLabel(self.frame2, text="", font=("Arial", 30))
+        self.label_super = customtkinter.CTkLabel(self.frame2, text="", font=("Arial", 11))
+        self.label_sub = customtkinter.CTkLabel(self.frame2, text="", font=("Arial", 11))
 
         # Pack Labels
+        self.label_ghost.pack(padx=190)
+        self.label_super.pack(anchor='nw')
+        self.label_main.pack(pady=85.5)
+        self.label_sub.pack(anchor='se')
+
+    def view(self):
+        self.label_main.configure(require_redraw=True, text=f'{sp.battery_info()[0]}%')
+        self.label_sub.configure(require_redraw=True, text=f'Time left: {sp.battery_info()[1]}')
+        self.label_super.configure(require_redraw=True, text=f'Source: {sp.battery_info()[2]}')
 
 app = App()
+app.view()
 app.mainloop()
 
