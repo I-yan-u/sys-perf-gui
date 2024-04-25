@@ -28,6 +28,13 @@ class App(customtkinter.CTk):
         self.button_Cpu.pack(padx=5, pady=5)
         self.button_Mem.pack(padx=5, pady=60.25)
 
+        # Init Labels
+        self.label_main = customtkinter.CTkLabel(self.frame2, text="", font=("Arial", 28))
+        self.label_super = customtkinter.CTkLabel(self.frame2, text="", font=("Arial", 16))
+        self.label_sub = customtkinter.CTkLabel(self.frame2, text="", font=("Arial", 16))
+
+        # Pack Labels
+
 app = App()
 app.mainloop()
 
