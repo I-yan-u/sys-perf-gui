@@ -35,6 +35,21 @@ def sec2hours(secs: int) -> str:
     hh, mm = divmod(mm, 60)
     return "%d:%02d:%02d" % (hh, mm, ss)
 
+def sec2days(secs: int) -> str:
+    """
+    Converts seconds to hours, minutes and seconds.
+
+    Args:
+        secs (int): Seconds to convert.
+
+    Returns:
+        str: Time in hh:mm:ss format.
+    """
+    mm, ss = divmod(secs, 60)
+    hh, mm = divmod(mm, 60)
+    dd, hh = divmod(hh, 24)
+    return "%d:%d:%02d:%02d" % (dd, hh, mm, ss)
+
 
 def cpu_per(percpu: bool = False) -> Union[float, List[float]]:
     """
@@ -47,7 +62,7 @@ def cpu_per(percpu: bool = False) -> Union[float, List[float]]:
     Returns:
     - float or list: The CPU usage percentage(s).
     """
-    return psutil.cpu_percent(interval=1, percpu=percpu)
+    return psutil.cpu_percent(interval=0, percpu=percpu)
 
 
 def mem_per() -> float:
@@ -99,13 +114,13 @@ def cpu_times(arg: str = None) -> float:
     """
     times = psutil.cpu_times()
     obj = {
-        'user': times.user,
-        'system': times.system,
-        'idle': times.idle,
+        'user': sec2days(times.user),
+        'system': sec2days(times.system),
+        'idle': sec2days(times.idle),
     }
     if arg and arg in ['user', 'system', 'idle']:
         return obj[arg]
-    return times
+    return sec2days(times[0] + times[1])
 
 
 def battery_info() -> List[Union[float, str, bool]]:

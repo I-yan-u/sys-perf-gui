@@ -9,7 +9,7 @@ class App(customtkinter.CTk):
         super().__init__(*args, **kwargs)
         self.geometry("500x400")
         self.title("System Performance")
-        self.default_view = "battery"
+        self.default_view = "cpu"
 
         # Init Frames
         self.frame1 = customtkinter.CTkFrame(self, width=150, height=350)
@@ -47,13 +47,16 @@ class App(customtkinter.CTk):
         self.label_super.configure(require_redraw=True, text=data["super"])
 
     def ba3_view(self):
-        self.default_view = "battery" 
+        self.default_view = "battery"
+        self.update()
 
     def cpu_view(self):
-        self.default_view = "cpu" 
+        self.default_view = "cpu"
+        self.update()
 
     def mem_view(self):
-        self.default_view = "mem" 
+        self.default_view = "mem"
+        self.update()
 
     def update(self):
         if self.default_view == "battery":
@@ -66,18 +69,18 @@ class App(customtkinter.CTk):
             data = {
                 'main': f'{sp.cpu_per()}%',
                 'sub': f'Total CPUs: {sp.cpu_count()}',
-                'super': f'Time Awake: {sp.cpu_times("user")}'
+                'super': f'Time Awake: {sp.cpu_times()}'
             }
         elif self.default_view == "mem":
             data = {
                 'main': f'{sp.mem_per()}%',
                 'sub': f'Total CPUs: {sp.cpu_count()}',
-                'super': f'Time Awake: {sp.cpu_times("user")}'
+                'super': f'Time Awake: {sp.cpu_times()}'
             }
         self.view(data)  # Update the GUI
 
-        # Schedule the update method to be called every second
-        self.after(500, self.update)
+        # Schedule the update method to be called every 1/2second
+        self.after(1000, self.update)
 
 
 app = App()
