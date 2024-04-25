@@ -9,6 +9,7 @@ class App(customtkinter.CTk):
         super().__init__(*args, **kwargs)
         self.geometry("500x400")
         self.title("System Performance")
+        self.default_view = "battery"
 
         # Init Frames
         self.frame1 = customtkinter.CTkFrame(self, width=150, height=350)
@@ -41,16 +42,29 @@ class App(customtkinter.CTk):
         self.label_sub.pack(anchor='se')
 
     def view(self, data):
-        self.label_main.configure(require_redraw=True, text=f'{data["main"]}%')
-        self.label_sub.configure(require_redraw=True, text=f'Time left: {data["sub"]}')
-        self.label_super.configure(require_redraw=True, text=f'Source: {data["super"]}')
+        self.label_main.configure(require_redraw=True, text=data["main"])
+        self.label_sub.configure(require_redraw=True, text=data["sub"])
+        self.label_super.configure(require_redraw=True, text=data["super"])
 
     def update(self):
-        data = {
-            'main': sp.battery_info()[0],
-            'sub': sp.battery_info()[1],
-            'super': sp.battery_info()[2]
-        }
+        if self.default_view == "battery":
+            data = {
+                'main': f'{sp.battery_info()[0]}%',
+                'sub': f'Time left: {sp.battery_info()[1]}',
+                'super': f'Source: {sp.battery_info()[2]}'
+            }
+        elif self.default_view == "cpu":
+            data = {
+                'main': f'{sp.cpu_per()}%',
+                'sub': f'Total CPUs: {sp.cpu_count()}',
+                'super': f'Time Awake: {sp.cpu_times("user")}'
+            }
+        else:
+            data = {
+                'main': f'{sp.mem_per()}%',
+                'sub': f'Total CPUs: {sp.cpu_count()}',
+                'super': f'Time Awake: {sp.cpu_times("user")}'
+            }
         self.view(data)  # Update the GUI
 
         # Schedule the update method to be called every second
