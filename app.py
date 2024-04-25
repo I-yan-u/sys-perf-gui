@@ -40,12 +40,24 @@ class App(customtkinter.CTk):
         self.label_main.pack(pady=85.5)
         self.label_sub.pack(anchor='se')
 
-    def view(self):
-        self.label_main.configure(require_redraw=True, text=f'{sp.battery_info()[0]}%')
-        self.label_sub.configure(require_redraw=True, text=f'Time left: {sp.battery_info()[1]}')
-        self.label_super.configure(require_redraw=True, text=f'Source: {sp.battery_info()[2]}')
+    def view(self, data):
+        self.label_main.configure(require_redraw=True, text=f'{data["main"]}%')
+        self.label_sub.configure(require_redraw=True, text=f'Time left: {data["sub"]}')
+        self.label_super.configure(require_redraw=True, text=f'Source: {data["super"]}')
+
+    def update(self):
+        data = {
+            'main': sp.battery_info()[0],
+            'sub': sp.battery_info()[1],
+            'super': sp.battery_info()[2]
+        }
+        self.view(data)  # Update the GUI
+
+        # Schedule the update method to be called every second
+        self.after(500, self.update)
+
 
 app = App()
-app.view()
+app.update()
 app.mainloop()
 
