@@ -20,9 +20,9 @@ class App(customtkinter.CTk):
         self.frame2.pack(side="right", padx=5, pady=5)
 
         # Init Buttons
-        self.button_b3 = customtkinter.CTkButton(self.frame1, text="Battery Info", command=None, height=30)
-        self.button_Cpu = customtkinter.CTkButton(self.frame1, text="CPU Usage", command=None, height=30)
-        self.button_Mem = customtkinter.CTkButton(self.frame1, text="Memory Usage", command=None, height=30)
+        self.button_b3 = customtkinter.CTkButton(self.frame1, text="Battery Info", command=self.ba3_view, height=30)
+        self.button_Cpu = customtkinter.CTkButton(self.frame1, text="CPU Usage", command=self.cpu_view, height=30)
+        self.button_Mem = customtkinter.CTkButton(self.frame1, text="Memory Usage", command=self.mem_view, height=30)
         
         # Pack Buttons
         self.button_b3.pack(padx=5, pady=60.25)
