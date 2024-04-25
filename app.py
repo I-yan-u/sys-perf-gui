@@ -46,6 +46,15 @@ class App(customtkinter.CTk):
         self.label_sub.configure(require_redraw=True, text=data["sub"])
         self.label_super.configure(require_redraw=True, text=data["super"])
 
+    def ba3_view(self):
+        self.default_view = "battery" 
+
+    def cpu_view(self):
+        self.default_view = "cpu" 
+
+    def mem_view(self):
+        self.default_view = "mem" 
+
     def update(self):
         if self.default_view == "battery":
             data = {
@@ -59,7 +68,7 @@ class App(customtkinter.CTk):
                 'sub': f'Total CPUs: {sp.cpu_count()}',
                 'super': f'Time Awake: {sp.cpu_times("user")}'
             }
-        else:
+        elif self.default_view == "mem":
             data = {
                 'main': f'{sp.mem_per()}%',
                 'sub': f'Total CPUs: {sp.cpu_count()}',
